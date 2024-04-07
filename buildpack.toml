@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-api = "0.7"
+api = "0.10"
 
 [buildpack]
   description = "A Cloud Native Buildpack with an order definition suitable for Java applications"
-  homepage = "https://paketo.io/docs/howto/java"
-  id = "paketo-buildpacks/java"
+  homepage = "https://github.com/cf-toolsuite/java"
+  id = "cf-toolsuite//java-buildpack"
   keywords = ["java", "composite"]
-  name = "Paketo Buildpack for Java"
-  version = "{{.version}}"
+  name = "Java Buildpack (cf-toolsuite)"
+  version = "12.1.0-cftoolsuite"
 
   [[buildpack.licenses]]
     type = "Apache-2.0"
@@ -114,6 +114,11 @@ api = "0.7"
     id = "paketo-buildpacks/spring-boot"
     optional = true
     version = "5.27.11"
+
+  [[order.group]]
+    id = "cf-toolsuite/spring-boot-runtime-metadata-buildpack"
+    optional = true
+    version = "0.2.0"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"

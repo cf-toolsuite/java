@@ -1,6 +1,8 @@
-# `gcr.io/paketo-buildpacks/java`
+# `docker.io/cftoolsuite/java-buildpack`
 
-The Paketo Buildpack for Java is a Cloud Native Buildpack with an order definition suitable for Java applications.
+The cf-toolsuite/java-buildpack for Java is a Cloud Native Buildpack with an order definition suitable for Java applications.
+
+It is a derivative of [paketo-buildpacks/java](https://github.com/paketo-buildpacks/java)
 
 ## Included Buildpacks
 
@@ -30,9 +32,49 @@ The Paketo Buildpack for Java is a Cloud Native Buildpack with an order definiti
 * [`paketo-buildpacks/spring-boot`](https://github.com/paketo-buildpacks/spring-boot)
 * [`paketo-buildpacks/syft`](https://github.com/paketo-buildpacks/syft)
 * [`paketo-buildpacks/watchexec`](https://github.com/paketo-buildpacks/watchexec)
+* [`cf-toolsuite/spring-boot-runtime-metadata-buildpack`](https://github.com/cf-toolsuite/spring-boot-runtime-metadata-buildpack)
 
 ## License
 
 This buildpack is released under version 2.0 of the [Apache License][a].
 
 [a]: http://www.apache.org/licenses/LICENSE-2.0
+
+
+## Clone
+
+```
+gh repo clone cf-toolsuite/java
+```
+
+## Prerequisites
+
+* [pack](https://github.com/buildpacks/pack) CLI
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Docker Engine](https://docs.docker.com/engine/)
+  * docker CLI
+* [Docker Hub](https://hub.docker.com/) account (alternatively, another container registry provider) and credentials
+
+## Build
+
+```
+pack buildpack package cftoolsuite/java-buildpack:latest --config ./package.toml --format image
+```
+
+## Publish
+
+```
+docker login docker.io -u cftoolsuite -p <dckr_pat>
+pack buildpack package cftoolsuite/java-buildpack:latest --config ./package.toml --format image --publish
+```
+> Replace `<dckr_pat>` above with personal access token for named user account on https://hub.docker.com
+
+### Inner loop
+
+If you're in the midst of updating the buildpack or builder, you can make use of [scripts](scripts):
+
+```
+./scripts/start-local-registry.sh
+./scripts/build.sh local
+./scripts/stop-local-registry.sh
+./scripts/teardown.sh
+```
